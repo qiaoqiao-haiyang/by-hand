@@ -1,0 +1,10 @@
+req.url获取用户请求的路径
+req.method
+req.header
+
+querystring.parse()得到对象
+querystring.stringify()得到字符串
+
+formidable
+jsonfile
+md5
