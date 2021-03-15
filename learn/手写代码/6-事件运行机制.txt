@@ -1,0 +1,13 @@
+事件循环运行机制：
+1，执行一个宏任务，（执行占中没有就从事件队列中获取）
+2，执行过程中遇到微任务，就把他添加到微任务队列中
+3，当前宏任务执行完毕，立即执行当前微任务队列中所有微任务
+4，当前宏任务执行完毕，检查渲染，如有变化，GUI线程接管进行渲染
+5，渲染完毕，JS引擎县城继续接管，开始下一个宏任务。
+
+宏任务包括：主代码块，setTimeout，setInterval的callback，各事件响应程序
+微任务包括：Promise.then,process.nextTick,async函数里await后的内容
+
+Promise.then(callback)中的callback属于微任务
+但是new Promise(executor)时的executor是同步任务，不是微任务，因为他会在new之后立即执行
+

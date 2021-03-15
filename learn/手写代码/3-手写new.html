@@ -6,6 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        //第一步：先创建一个空对象{}
+        //第二步：链接到原型，即新对象继承构造函数的原型链
+        //第三步：将构造函数的this指向这个对象
+        //第四步：根据构造函数的返回值类型返回结果
+        function _new(){
+            // let obj = {}
+            let obj = Object.create(null)//步骤一
+            let cons = Array.prototype.shift.call(arguments)//获取构造函数，默认第一个参数传入
+            obj.__proto__ = cons.prototype//步骤二
+            let result = cons.apply(obj,arguments);//步骤三
+            return typeof result === 'object' ? result :obj;//步骤四
+ 
+        }
+        
+    </script>
 </body>
 </html>
