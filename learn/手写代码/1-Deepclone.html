@@ -8,6 +8,37 @@
 <body>
     <script>
         //深拷贝
+       function deepClone(target){
+        let result
+        if(typeof(target)==="object"){
+            if(Array.isArray(target)){
+                result = []
+                for(let val of target){
+                    result.push[deepClone(val)]
+                }
+            }
+            else{
+                result={}
+                for(let item in target){
+                    result[item] = deepClone(target[item])
+                }
+            }
+        }else{
+            result = target
+        }
+        return result
+       }
+        let obj = {
+            name: "xx",
+            age: "20",
+            school: "理工",
+            student: {
+                name: "小a"
+            }
+        }
+        let obj2 = deepClone(obj)
+        obj.student.name = "小b";
+        console.log(obj2);
     </script>
 </body>
 </html>

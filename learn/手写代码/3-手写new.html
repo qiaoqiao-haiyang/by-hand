@@ -20,7 +20,13 @@
             return typeof result === 'object' ? result :obj;//步骤四
  
         }
-        
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+
+        }
+        const obj = new Person("qx",19)
+        console.log(obj);
     </script>
 </body>
 </html>

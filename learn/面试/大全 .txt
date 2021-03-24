@@ -1,0 +1,243 @@
+行元素：自己占一行  不可以设置宽高，宽度由内容撑开，但是img可以设置宽高   
+img a span 
+块元素：垂直分布，宽度自适应，占满父元素的剩余空间  div ul li h1~h6 p 
+
+box-sizing=border-box 怪异
+(正常)content = content+padding+border (怪异盒模型)
+
+居中布局：
+水平居中--
+行内元素:text-align = center
+块级元素:margin: 0 auto
+absolute + transform
+flex + justify-content :center
+
+垂直居中：
+line-height = height
+absolute + transform
+flex + align-items:center
+table
+
+水平垂直居中
+absolute+transform
+flex+justify-content+align-items
+
+选择器优先级
+!important>内联样式>#>.>标签选择器>。。。。
+
+清除浮动
+给父元素加overflow-hidden
+创建父级BFC
+给父元素设置宽高
+伪元素clearfix::after{
+    content:"",
+    clear:both,
+    display:block
+}
+
+CSS动画:
+transform-translate平移
+transform-scale缩放
+transform-rotate旋转
+
+DOM文档加载流程:
+最开始是load事件但是load需要等所有资源加载完才触发
+解析HTML结构->加载外部脚本和样式宏文件->解析并执行脚本代码->构造HTML DOM渲染树->加载图片等外部文件->页面加载完毕load
+如果遇到 <script>，便会停下对 HTML 文档的解析，转而去处理脚本。
+如果脚本是内联的，浏览器会先去执行这段内联的脚本，如果是外联的，那么先会去加载脚本，然后执行。
+
+闭包：
+函数里面嵌套函数内部函数可以访问外部函数的局部变量
+缺点，消耗资源，内存泄漏，父级变量对象修改，子函数都受影响
+使用块级作用域让变量成为自己上下文的属性，避免共享
+
+script中的defer和async属性
+如果script标签设置该属性，则浏览器会异步的下载该文件，并且不会影响到后续DOM的渲染，
+如果有多个设置了defer的script标签，则会按照顺序执行所有的script;
+defer脚本会在文档渲染完毕后 DOMcontentLoaded事件调用前执行
+无私，下载完了等html加载完之后再执行
+async：async的设置回使得脚本异步的加载并在润许的情况下执行
+async的执行并不会按着script在页面中的顺序来执行
+自私，谁先加载完谁执行
+
+new运算符的执行过程
+第一步：先创建一个空对象{}
+第二步：链接到原型，即新对象继承构造函数的原型链
+第三步：将构造函数的this指向这个对象
+第四步：根据构造函数的返回值类型返回结果
+
+工厂模式，构造函数模式，原型模式
+
+
+
+
+
+
+
+
+
+
+
+
+检测数据类型的方法：
+typeof()只能区分引用数据类型与基本数据类型
+instanceof检测一个实例是否属于一个类  不能用于检测和处理原始数据类型
+arr instanceof Array =>true
+constoructor构造函数，把类原型重写，很可能把之前的constoructor覆盖
+判断arr是否为数组
+1-instanceof操作符
+arr instanceof Array
+2-对象的constoructor属性
+arr.constoructor ===Array
+3-Objct.prototype.toString.call用来区分null和ARrar类型
+Object.prototype.toString.call(arr) === [object Array]
+
+模块化开发：
+es6：import/export
+commonjs:require /moudle.exports/exports
+amd:require/defined
+require与import的区别
+require 支持动态导入，import不支持，(正在提案，babel下可支持)
+require是同步导入 ，import属于异步导入
+require是值拷贝，导出值变化不会影响导入值；
+import指向内存地址，到入职会随着到处知而变化
+SeaJS对模块的态度是懒执行, 而RequireJS对模块的态度是预执行
+SeaJS只会在真正需要使用依赖模块的时候才执行该模块，虽然是异步但也严格按照顺序
+RequireJS会先尽早地执行依赖模块执行顺序也不确定
+
+防抖和节流：
+防抖：将多次高频率操作优化为只在最后一次执行，通常使用的场景是用户输入
+节流：每隔一段时间后执行一次，降低频率，将高频操作优化成低频操作
+场景：滚动条事件通常每隔100~500ms执行一次
+防抖：
+ function debounce(fn, wait) {
+            let timer = null;
+            return function (...arg) {
+                let context = this;
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                timer = setTimeout(function () {
+                    fn.apply(context, arg)
+                }, wait)
+            }
+        }
+节流：
+    function throttle(fn, wait) {
+        let timer = null
+            return function (...arg) {
+                let context = this;
+                if (!timer) {
+                    timer = setTimeout(function () {
+                        timer = null
+                        fn.apply(context, arg)
+                    }, wait)
+                }
+
+            }
+
+        }
+
+函数中的this指向问题
+三种改变this指向的方法
+1-call:fn.call(target,1,2)
+2-apply:fn.apply(target,[1,2])
+3-bind:fn.bind(target)(1,2)
+
+1、全局环境中的this指window
+2、其他函数中的this指向调用它的对象
+3、在构造函数里用new调用，指向创建的新实例对象
+4、使用call和apply改变函数中this的具体指向
+
+AST
+抽象语法树是将代码逐个字母解析成树状对象的形式。
+
+visitFunctionDelaration遍历
+visitExpressionStatement操作赋值表达式
+
+babel编译原理
+ES6代码输入 --> babylon进行解析 --> 得到AST
+--> plugin用babel-traverse对AST树进行遍历转译 --> 得到新的AST树
+--> 用babel-generator通过AST树生成ES5代码
+
+ES6新特性
+let/const:块级作用域，不存在变量提升
+const:声明常量，无法修改
+class/extend:类声明与继承
+Promise的使用和实现
+promise有三种状态padding fulfilled rejected不可逆
+异步回调->同步顺序
+resolve对应promise.then
+reject对应promise.catch
+
+
+await/async是generator的语法糖
+
+ajax客户端与服务端异步通信
+1-创建XMLHttpRequest对象
+/*
+ var xmlhttp;
+  xmlhttp = new XMLHttpRequest();
+*/
+2-向服务器发起请求
+/*
+xmlhttp.open("GET", "./test.json", true);
+xmlhttp.send();
+*/
+3-接受回调数据
+/*
+xmlhttp.onreadystatechange = function () {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var obj = JSON.parse( xmlhttp.responseText)
+                console.log(obj.username);
+            }
+        }
+*/
+
+readyState有5种值
+0：请求未初始化
+1：服务器连接已建立
+2：请求已接收
+3：请求处理中
+4：请求已完成，且相应已经就绪
+
+ajax中dataType有哪些类型
+默认类型是String
+可用值：xml，html,script,json,jsonp,text
+
+浏览器下的事件循环 Event Loop
+1，执行一个宏任务，（执行占中没有就从事件队列中获取）
+2，执行过程中遇到微任务，就把他添加到微任务队列中
+3，当前宏任务执行完毕，立即执行当前微任务队列中所有微任务
+4，当前宏任务执行完毕，检查渲染，如有变化，GUI线程接管进行渲染
+5，渲染完毕，JS引擎线程继续接管，开始下一个宏任务。
+宏任务包括：主代码块，setTimeout，setInterval的callback，各事件响应程序
+微任务包括：Promise.then,process.nextTick,async函数里await后的内容
+
+从输入url到展示的过程：所有网址真正的解析过程为: . -> .com -> google.com. -> www.google.com.
+1 DNS解析
+2 TCP三次握手
+3 发送请求，分析url，设置请求报文
+4 服务器返回请求的文件（html）
+5 浏览器渲染  
+HTML parser ->DOM Tree      (dom树建立)
+CSS parser ->Style Tree     (解析css代码，生成样式树)
+attachment ->Render Tree    (结合dom树与style树，生成渲染树)
+浏览器开始布局渲染树并将其绘制到屏幕上。这个过程比较复杂，涉及到两个概念: reflow(回流)和repain(重绘)。
+6 layout布局
+7 GUP painting像素绘制页面
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

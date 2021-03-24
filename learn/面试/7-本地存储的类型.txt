@@ -1,0 +1,12 @@
+浏览器的本地存储主要有Cookie Webstorage(包括 localStorage 和 sessionStorage) 和IndexedDB
+Cookie和webStorage都不适合储存大量数据
+
+LocalStorage 在 2.5MB 到 10MB 之间（各家浏览器不同），而且不提供搜索功能，不能建立自定义的索引。
+
+Cookie:   Cookie 的大小不超过4KB，且每次请求都会发送回服务器；
+cookie是为了解决HTTP协议的无状态属性而产生的。
+流程：
+1-服务器收到HTTP请求
+2-在响应头中添加set-cookie字段
+cookie缺点：容量小，还会带来额外的开销。因为服务器指定cookie后
+浏览器的每次请求都会携带cookie数据这样随着次数的增多，性能浪费也会增大

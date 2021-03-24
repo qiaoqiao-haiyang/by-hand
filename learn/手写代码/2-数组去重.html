@@ -6,6 +6,96 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+         var arr = [1,2,3,4,3,4,5]
+        // console.log(arr);
+        //方法一 运用splice
+        // function unique(arr){
+        //     for(var i =0;i<arr.length;i++){
+        //         for(var j=i+1;j<arr.length;j++){
+        //             if(arr[i] == arr[j]){
+        //                 arr.splice(j,1);
+        //                 j--;
+        //             }
+        //         }
+        //     }
+        //     return arr
+        // }
+        // console.log(unique(arr));
+        
+
+
+        //方法二 indexOf 和newArr
+        // function unique(arr){
+        //     var newArr =[]
+        //     for(var i=0;i<arr.length;i++){
+        //         if(newArr.indexOf(arr[i])==-1){
+        //             newArr.push(arr[i])
+        //         }
+        //     }
+        //     return newArr
+        // }        
+        // console.log(unique(arr));
+
+        // let arr1 = [1,15,3,6,2,4]
+        // console.log(arr1.sort(function(a,b){
+        //     return a-b//升序
+        //     // return b-a//降序
+        // }))
+
+        //方案三 sort排序 和新数组
+        // function unique(arr){
+        //     arr = arr.sort(function(a,b){
+        //         return a-b
+        //     })
+        //     let newArr = [arr[0]];
+        //     for(var i = 1;i<arr.length;i++){
+        //         if(arr[i] != arr[i-1]){
+        //             newArr.push(arr[i]);
+        //         }
+        //     }
+        //     return newArr
+        // }
+        // console.log(unique(arr));
+
+        //方案四 利用对象属性名不能重复
+        // function unique(arr){
+        //     let newArr = [];
+        //     let obj = {}
+        //     for(let i = 0;i<arr.length;i++){
+        //         if(!(arr[i] in obj)){
+        //             newArr.push(arr[i]);
+        //             obj[arr[i]] = 1
+        //         }else{
+        //             obj[arr[i]]++
+        //         }
+        //     }
+        //     return newArr
+        // }
+        // console.log(unique(arr));
+
+        //方案五 利用filter 新数组
+        // var arr = [1,2,3,4,3,4,5]
+        // function unique(arr){
+        //     let newArr = []
+        //     newArr = arr.filter(function(val,key,arr1){
+        //         console.log(arr1.indexOf(val),key);
+        //         console.log(arr1.indexOf(val) == key);
+        //         return arr1.indexOf(val) == key
+        //     })
+        //     return newArr
+        // }
+        //         console.log(unique(arr));
+
+        //方案六 
+
+        // function unique(arr){
+        //     // return Array.from(new Set(arr))
+        //     return [...new Set(arr)];
+        // }
+        // console.log(unique(arr));
+
+
+    </script>
 </body>
 </html>
