@@ -215,6 +215,7 @@ ajax中dataType有哪些类型
 微任务包括：Promise.then,process.nextTick,async函数里await后的内容
 
 从输入url到展示的过程：所有网址真正的解析过程为: . -> .com -> google.com. -> www.google.com.
+https://segmentfault.com/a/1190000006879700
 1 DNS解析
 2 TCP三次握手
 3 发送请求，分析url，设置请求报文
@@ -227,6 +228,77 @@ attachment ->Render Tree    (结合dom树与style树，生成渲染树)
 6 layout布局
 7 GUP painting像素绘制页面
 
+重绘与回流
+重绘(repaint): 当元素样式的改变不影响布局时，
+浏览器将使用重绘对元素进行更新，此时由于只需要UI层面的重新像素绘制，
+因此 损耗较少
+回流(reflow): 当元素的尺寸、结构或触发某些属性时，浏览器会重新渲染页面，称为回流。
+此时，浏览器需要重新经过计算，计算后还需要重新页面布局，因此是较重的操作。
+触发回流的操作：
+(页面初次渲染，浏览窗口大小改变，元素尺寸，位置，
+内容改变，元素字体大小变化，添加或者删除可见的dom元素，激活css伪类，)
+
+总结：回流必定重绘，重绘不一定会触发回流，重绘的开销小，回流的代价高
+避免方法：css避免使用table布局，将动画效果应用到position属性为absoulte或fixed的元素上
+js：避免频繁操作样式，尽量使用class进行样式修改，
+减少dom的增删次数，可以把样式改为display：none后修改
+Opacity：0完全透明
+visibility: hidden将元素隐藏占的位置不变
+-维护队列-
+
+存储
+-浏览器：cookice，localStorage/sessionStorage，webStorage(减少网络流量，快速显示数据，临时存储)
+--cookie和session区别--
+1-cookie存在于客户端，
+session存在于服务端，
+2-cookie在客户端中存放，容易伪造，没有session安全
+3-session会消耗大量服务器资源，cookie在每次HTTP请求中都会被带上，影响网络性能，
+4-session默认被存放在服务器端一个文件（不是内存）
+5-session运行依赖session-id而session-id存放在cookie中如果浏览器禁用cookie那么session也会失效，（可以用url传递）
+6-session保存对象，cookie保存字符串
+7-session不能区分路径，同一用户访问同一个网站期间，所有的session在任何一个地方都可以访问，而cookie如果设置参数那么同一个网站不同路基管辖的cookie互相访问不到
+8-cookie支持跨域访问，session不支持
+9-单个cookie保存数据不超过4K，很多浏览器限制最多保存20个cookie
+-服务器:分布式缓存，数据库
+
+
+web socket-轮询-
+web worker-为现代浏览器创建的多线程环境，
+可以新建并将部分任务分配到worker线程并行运行，两个线程可以独立运行，
+互不干扰，可以通过自带的，消息机制相互通信
+web worker基本用法
+1-创建worker
+const worker = new Worker('worker.js)
+2-向主进程推送消息
+worker.postMessage('hello world')
+3-监听主进程来的消息
+worker.onmessage = function(event){
+    console.log('Revived message' + event.data)
+}
+限制：同源限制，无法加载本地资源，无法使用document/window/alert/confirm
+server worker-代理服务器
+
+V8垃圾回收机制https://segmentfault.com/a/1190000000440270
+新生代空间-存活时间短的对象-from空间/to空间-
+当from空间被占满启动GC算法
+存活的对象从from space转移到 to space
+清空from space
+from space与to space交换
+完成一次新生代GC
+老生代空间-存活时间长的对象
+从新生代转移到老生代的条件-经历一次以上GC的对象
+当to space 体积超过25%时
+标记清除算法：标记存活的对象，未被标记的则被释放
+-增量标记，小模块标记-在代码执行间隙执行GC
+-并发标记：不阻塞js 执行
+压缩算法：将内存中清除后导致的碎片化对象往内存堆的一端移动，解决内存的碎片化
+
+内存泄漏http://www.ruanyifeng.com/blog/2017/04/memory-leak.html
+-意外的全局变量无法被回收
+-定时器：没有被正确的关闭，导致所引用的外部变量无法被释放
+-事件监听：没有正确的销毁(低版本服务器可能出现)
+-闭包：会导致父级中的变量无法释放
+-dom引用：dom元素被删除时，内存中的引用未被正确清空
 
 
 
