@@ -100,7 +100,7 @@ require与import的区别
 require 支持动态导入，import不支持，(正在提案，babel下可支持)
 require是同步导入 ，import属于异步导入
 require是值拷贝，导出值变化不会影响导入值；
-import指向内存地址，到入职会随着到处知而变化
+import指向内存地址，导入值会随着导出值而变化
 SeaJS对模块的态度是懒执行, 而RequireJS对模块的态度是预执行
 SeaJS只会在真正需要使用依赖模块的时候才执行该模块，虽然是异步但也严格按照顺序
 RequireJS会先尽早地执行依赖模块执行顺序也不确定
@@ -199,7 +199,7 @@ readyState有5种值
 1：服务器连接已建立
 2：请求已接收
 3：请求处理中
-4：请求已完成，且相应已经就绪
+4：请求已完成，且响应已经就绪
 
 ajax中dataType有哪些类型
 默认类型是String
