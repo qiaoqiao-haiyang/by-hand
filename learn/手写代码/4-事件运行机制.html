@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    <script>
-        async function async_func1() {
-  console.log('async_func1 start');
-  await async_func2();
-  console.log('async_func1 end');
-}
+  <script>
+    async function async_func1() {
+      console.log('async_func1 start'); 2
+      await async_func2();
+      console.log('async_func1 end'); 6
+    }
 
-async function async_func2() {
-  console.log('async_func2 start');
-}
+    async function async_func2() {
+      console.log('async_func2 start'); 3
+    }
 
-console.log('script start');
+    console.log('script start'); 1
 
-setTimeout(function(){
-  console.log('setTimeout');
-}, 0);
+    setTimeout(function () {
+      console.log('setTimeout'); 8
+    }, 0);
 
-async_func1();
+    async_func1();
 
-new Promise((resolve, reject) => {
-  console.log('promise1');
-  resolve();
-  console.log('promise1 resolve');
-}).then(() => {
-  console.log('promise2');
-});
-    </script>
+    new Promise((resolve, reject) => {
+      console.log('promise1'); 4
+      resolve();
+      console.log('promise1 resolve'); 5
+    }).then(() => {
+      console.log('promise2'); 7
+    });
+  </script>
 </body>
+
 </html>

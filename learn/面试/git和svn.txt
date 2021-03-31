@@ -1,0 +1,15 @@
+git分布式，svn集中式
+git比svn操作复杂svn更加容易上手
+
+常见的git操作
+git add从工作区提交到缓存区
+git commit 从暂存区提交到本地
+git push或git svn dommit从本地仓库提交到远程仓库
+添加指定文件到缓存区
+git add<file1><file2>...
+git init新建仓库
+git rm删除工作区文件
+git branch列出所有分支
+
+git fetch将远程仓库的变化下载下来，不和本地分支合并
+git pull将远程仓库的变化下载下来，并与本地分支合并

@@ -28,17 +28,19 @@
         }
         return result
        }
-        let obj = {
-            name: "xx",
-            age: "20",
-            school: "理工",
-            student: {
-                name: "小a"
-            }
-        }
-        let obj2 = deepClone(obj)
-        obj.student.name = "小b";
-        console.log(obj2);
+        // let obj = {
+        //     name: "xx",
+        //     age: "20",
+        //     school: "理工",
+        //     student: {
+        //         name: "小a"
+        //     }
+        // }
+        // let obj2 = deepClone(obj)
+        // obj.student.name = "小b";
+        // console.log(obj2);
+        let str = "1,2,3,4,5"
+        console.log(deepClone(str))
     </script>
 </body>
 </html>

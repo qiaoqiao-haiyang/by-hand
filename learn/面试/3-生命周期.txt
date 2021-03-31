@@ -1,4 +1,4 @@
-beforeCreate	        组件实例被创建之初
+beforeCreate	        实例初始化之后数据监听，事件配置之前不能获得data数据
 created	                组件实例已经完全创建
 beforeMount 	        组件挂载之前
 mounted	                组件挂载到实例上去之后
